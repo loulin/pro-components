@@ -38,28 +38,32 @@ export const BaseDateRanger: React.FC<
       <ProConfigProvider
         valueTypeMap={{
           [valueType]: {
-            render: (text, props) => (
-              <FieldRangePicker
-                {...props}
-                format={
-                  valueType === 'dateTimeRange'
-                    ? props.format ?? 'YYYY-MM-DD HH:mm:ss'
-                    : props.format
-                }
-                text={text}
-              />
-            ),
-            formItemRender: (text, props) => (
-              <FieldRangePicker
-                {...props}
-                format={
-                  valueType === 'dateTimeRange'
-                    ? props.format ?? 'YYYY-MM-DD HH:mm:ss'
-                    : props.format
-                }
-                text={text}
-              />
-            ),
+            render: (text, props) => {
+              const format =
+                valueType === 'dateTimeRange'
+                  ? (props.fieldProps as any)?.format ?? 'YYYY-MM-DD HH:mm:ss'
+                  : (props.fieldProps as any)?.format;
+              return (
+                <FieldRangePicker
+                  {...props}
+                  format={format}
+                  text={text}
+                />
+              );
+            },
+            formItemRender: (text, props) => {
+              const format =
+                valueType === 'dateTimeRange'
+                  ? (props.fieldProps as any)?.format ?? 'YYYY-MM-DD HH:mm:ss'
+                  : (props.fieldProps as any)?.format;
+              return (
+                <FieldRangePicker
+                  {...props}
+                  format={format}
+                  text={text}
+                />
+              );
+            },
           },
         }}
       >

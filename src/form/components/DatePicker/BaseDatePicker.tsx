@@ -40,28 +40,32 @@ export const BaseDatePicker: React.FC<
       <ProConfigProvider
         valueTypeMap={{
           [valueType]: {
-            render: (text, props) => (
-              <FieldDatePicker
-                {...props}
-                format={
-                  valueType === 'dateTime'
-                    ? props.format ?? 'YYYY-MM-DD HH:mm:ss'
-                    : props.format
-                }
-                text={text}
-              />
-            ),
-            formItemRender: (text, props) => (
-              <FieldDatePicker
-                {...props}
-                format={
-                  valueType === 'dateTime'
-                    ? props.format ?? 'YYYY-MM-DD HH:mm:ss'
-                    : props.format
-                }
-                text={text}
-              />
-            ),
+            render: (text, props) => {
+              const format =
+                valueType === 'dateTime'
+                  ? (props.fieldProps as any)?.format ?? 'YYYY-MM-DD HH:mm:ss'
+                  : (props.fieldProps as any)?.format;
+              return (
+                <FieldDatePicker
+                  {...props}
+                  format={format}
+                  text={text}
+                />
+              );
+            },
+            formItemRender: (text, props) => {
+              const format =
+                valueType === 'dateTime'
+                  ? (props.fieldProps as any)?.format ?? 'YYYY-MM-DD HH:mm:ss'
+                  : (props.fieldProps as any)?.format;
+              return (
+                <FieldDatePicker
+                  {...props}
+                  format={format}
+                  text={text}
+                />
+              );
+            },
           },
         }}
       >
